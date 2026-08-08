@@ -9,7 +9,7 @@
 | 网络基础 | TCP/HTTP/DNS、负载均衡 | [docs/fundamentals/](docs/fundamentals/) |
 | CDN 与文件分发 | 架构、下载链路排查、发布与容量 SOP | [docs/cdn/](docs/cdn/) |
 | 中间件 | MySQL、Redis、ELK、MongoDB、Nginx、Kafka 等 | [docs/middleware/](docs/middleware/) |
-| Kubernetes | 架构原理、排障、扩展开发、中间件容器化 | [docs/kubernetes/](docs/kubernetes/) |
+| Kubernetes | 架构原理、排障、扩展开发、中间件容器化、日志采集 | [docs/kubernetes/](docs/kubernetes/) |
 | 监控与 SLO | Prometheus/Grafana、告警治理、容量规划 | [docs/monitoring/](docs/monitoring/) |
 | DevOps | CI/CD、Go/Python 自动化、On-call/变更/复盘机制 | [docs/devops/](docs/devops/) |
 | LLM 与 AI Agent | LLM 基础、应用模式、Agent 构建方法、核心阅读清单 | [docs/llm/](docs/llm/) |

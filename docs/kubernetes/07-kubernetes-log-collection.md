@@ -12,15 +12,49 @@
 | 应用文件日志 | 容器内挂载的日志目录 | 应用直接写文件（需落盘或挂载） |
 | 节点/系统日志 | `/var/log/messages`、kubelet 等 | 节点级采集 |
 
-### 三种采集模式
+### 四种采集模式
 
 | 模式 | 原理 | 适用 |
 | --- | --- | --- |
 | 节点级 DaemonSet | 每节点一个 Agent，读本机容器日志文件 | 默认推荐：覆盖全、成本低 |
 | Sidecar 模式 | 每 Pod 一个 Agent 容器，与业务容器同 Pod | 特殊格式/多行处理/独立输出 |
+| 内嵌基础镜像 | Agent 打进应用基础镜像，与应用进程同容器运行 | 特殊路径/格式、跟随应用发布 |
 | 应用直推（SDK） | 应用通过 SDK 直接发送日志 | 业务级结构化日志、链路日志 |
 
-**推荐基线**：DaemonSet + 文件采集为主，特殊业务用 Sidecar。
+**推荐基线**：DaemonSet + 文件采集为主，特殊业务用 Sidecar 或内嵌镜像。
+
+### 内嵌基础镜像模式（Agent 打进应用镜像）
+
+把 Filebeat / Fluentd 二进制与配置**打进应用的基础镜像**，容器启动时与应用进程一起运行（通过 supervisord/tini 多进程管理，或 entrypoint 里后台拉起 Agent）。
+
+```dockerfile
+FROM base-app-image
+
+# 安装并配置日志 Agent
+ADD filebeat.yml /etc/filebeat/filebeat.yml
+RUN curl -L -o filebeat.tar.gz https://artifacts.elastic.co/downloads/beats/filebeat/filebeat-8.x-linux-x86_64.tar.gz \
+    && tar xzf filebeat.tar.gz -C /opt/ \
+    && ln -s /opt/filebeat-8.x-linux-x86_64/filebeat /usr/local/bin/filebeat
+
+# 多进程管理：应用 + filebeat 同容器运行
+ENTRYPOINT ["/usr/local/bin/supervisord", "-c", "/etc/supervisord.conf"]
+```
+
+优点：
+
+- **跟随应用发布**：Agent 版本与配置和应用镜像一起发布、一起回滚，版本一致性最好。
+- **可采容器内任意路径**：应用直接写本地文件（如 `/app/logs/*.log`），无需 stdout 或共享卷。
+- **无 DaemonSet/集群依赖**：独立环境（如非 K8s 场景）也能用同一套镜像。
+
+缺点与注意：
+
+- **资源重复**：每个 Pod 都多一个 Agent 进程，内存/CPU 按 Pod 数线性叠加。
+- **镜像变大**：镜像体积增加；Agent 升级需要重建镜像、重新发版。
+- **多进程管理**：一个容器跑多个进程，违背「单容器单主进程」惯例，需要 supervisord/tini 等管理器，进程退出/崩溃要处理（Agent 挂了不影响主进程，但日志会丢）。
+- **状态易失**：位置文件（pos/registry）在容器内，Pod 重建即丢失，可能重复采集；如需断点续读要挂载持久卷。
+- **只能采本 Pod 日志**：无法覆盖节点/系统日志，也不适合全集群统一治理。
+
+适用场景：应用日志路径/格式特殊且与镜像强绑定、无法用共享卷或 DaemonSet 的环境、对 Agent 版本跟随应用有严格要求的中小规模场景。
 
 ## 二、采集模式：基于文件
 
@@ -263,4 +297,3 @@ resources:
 - [ ] Agent 资源 requests/limits 已设置
 - [ ] Agent 指标与告警（积压、丢弃、OOM、重启）已配置
 - [ ] 压测基线记录，容量随节点数扩展
-

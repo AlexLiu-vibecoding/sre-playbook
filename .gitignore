@@ -25,5 +25,9 @@ build/
 *.exe
 *.tar.gz
 
+# Python 缓存
+__pycache__/
+*.pyc
+
 # 本地私有资料（不提交）
 _private/

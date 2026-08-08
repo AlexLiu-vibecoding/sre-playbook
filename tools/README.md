@@ -15,6 +15,10 @@
 - 告警转发/值班提醒工具
 - 容量水位统计脚本
 
+## 已有工具
+
+- [k8s_oom_analyzer/k8s_pod_memory_oom_analyzer.sh](k8s_oom_analyzer/k8s_pod_memory_oom_analyzer.sh)：K8s Pod 内存 & OOM 分析脚本（cgroup 内存数据收集 + 近 24 小时 OOM 事件分析）
+
 ## 规范
 
 - 每个工具：README + 单元测试 + 参数化 + 日志

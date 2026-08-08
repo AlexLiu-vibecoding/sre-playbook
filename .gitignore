@@ -1,0 +1,29 @@
+# 密钥与本地配置
+*.pem
+*.key
+.env
+.env.*
+!*.example
+
+# 本地凭据
+.git-credentials
+
+# 系统与编辑器
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+*.swp
+
+# 日志与临时文件
+*.log
+tmp/
+
+# 构建产物
+dist/
+build/
+*.exe
+*.tar.gz
+
+# 本地私有资料（不提交）
+_private/

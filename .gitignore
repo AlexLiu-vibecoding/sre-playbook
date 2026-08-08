@@ -29,5 +29,9 @@ build/
 __pycache__/
 *.pyc
 
+# 不公开的工具/脚本（保留本地，不提交）
+tools/zclean.sh
+tools/alb_switch/
+
 # 本地私有资料（不提交）
 _private/

@@ -1,0 +1,23 @@
+# AWS ALB 切流配置示例
+# 部署时通常放在 /data/config.yml（或 /data1/config.yml）
+app:
+  name: demo
+
+alb:
+  name: default            # 可选；多 ALB 配置用 albs map，name 即 alb_name
+  # 参与切流的目标组，列表顺序即 set_weight 的权重参数顺序
+  target_groups:
+    - name: green            # A 机房（旧环境）
+      arn: arn:aws:elasticloadbalancing:ap-southeast-1:123456789012:targetgroup/green/0abc123
+      alias: A机房
+      weight: 100
+    - name: blue             # B 机房（新环境）
+      arn: arn:aws:elasticloadbalancing:ap-southeast-1:123456789012:targetgroup/blue/0def456
+      alias: B机房
+      weight: 0
+
+  # 白名单规则：命中 did header 的请求转发到 target_group
+  whitelist:
+    enabled: true
+    header: did
+    target_group: green

@@ -12,6 +12,7 @@
 | Kubernetes | 架构原理、排障、扩展开发、中间件容器化 | [docs/kubernetes/](docs/kubernetes/) |
 | 监控与 SLO | Prometheus/Grafana、告警治理、容量规划 | [docs/monitoring/](docs/monitoring/) |
 | DevOps | CI/CD、Go/Python 自动化、On-call/变更/复盘机制 | [docs/devops/](docs/devops/) |
+| LLM 与 AI Agent | LLM 基础、应用模式、Agent 构建方法 | [docs/llm/](docs/llm/) |
 | 虚拟化 | VMware vSphere | [docs/virtualization/](docs/virtualization/) |
 | 公有云 | 阿里云 / AWS 实践、多地域多机房部署 | [docs/cloud/](docs/cloud/) |
 | 排查手册 | 高频故障速查、下载链路排查 | [docs/troubleshooting/](docs/troubleshooting/) |

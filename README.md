@@ -15,6 +15,7 @@
 | LLM 与 AI Agent | LLM 基础、应用模式、Agent 构建方法、核心阅读清单 | [docs/llm/](docs/llm/) |
 | 虚拟化 | VMware vSphere | [docs/virtualization/](docs/virtualization/) |
 | 公有云 | 阿里云 / AWS 实践、多地域多机房部署 | [docs/cloud/](docs/cloud/) |
+| FinOps | 成本节省方法论、计算资源降本、S3 存储类、数据生命周期 | [finops/](finops/) |
 | 排查手册 | 高频故障速查、下载链路排查 | [docs/troubleshooting/](docs/troubleshooting/) |
 | SOP | On-call、变更管理、故障响应 | [docs/sop/](docs/sop/) |
 | 工具代码 | Go / Python 运维工具 | [tools/](tools/) |

@@ -64,7 +64,7 @@
 
 计算资源专项子文档：
 
-- [计算资源降本：选型、RightSize 与计费模式（含 x86/ARM 对比）](cost-saving/01-compute-resources.md)
+- [计算资源降本：选型、RightSize 与计费模式（含 x86/ARM 对比）](01-compute-resources.md)
 
 ### 2. 数据库（RDS / 云数据库）
 
@@ -88,8 +88,8 @@
 
 其他资源专项子文档：
 
-- [S3 存储类选型、适用产品与保留周期](cost-saving/02-s3-storage-classes.md)
-- [数据生命周期降本方法论（快照 / RDS 大表归档 / ES 冷热分层 / 日志全链路）](cost-saving/03-data-lifecycle-cost-saving.md)
+- [S3 存储类选型、适用产品与保留周期](02-s3-storage-classes.md)
+- [数据生命周期降本方法论（快照 / RDS 大表归档 / ES 冷热分层 / 日志全链路）](03-data-lifecycle-cost-saving.md)
 
 ## 四、决策要点（避坑）
 
